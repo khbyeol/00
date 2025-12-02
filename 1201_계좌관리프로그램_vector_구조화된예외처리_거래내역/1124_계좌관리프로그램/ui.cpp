@@ -34,11 +34,13 @@ void Ui::acc_printall()
 {
 	printf("\n[전체 출력]\n\n");
 
-	vector<Account*> arr = am.get_accounts();
+	list<Account*> arr = am.get_accounts();
 	cout << "저장개수 : " << arr.size() << endl;
-	for (int i = 0; i < arr.size(); i++)
+	list<Account*>::iterator begin = arr.begin();
+	list<Account*>::iterator end = arr.end();
+	for ( ; begin != end; begin++)
 	{
-		Account* acc = (Account*)arr[i];
+		Account* acc = *begin;
 		acc->Print();  //다형성!!~
 		cout << endl;
 	}

@@ -11,7 +11,7 @@ enum AccType
 class AccountManager
 {
 private:
-	vector<Account*> accounts;  //객체 생성 및 소유(has a)
+	list<Account*> accounts;  //객체 생성 및 소유(has a)
 	vector<AccountIO*> acc_ios; //저장(계좌생성,입금,출금),검색(계좌검색)
 
 public:
@@ -19,7 +19,7 @@ public:
 	~AccountManager();
 
 public:
-	vector<Account*> get_accounts();
+	list<Account*> get_accounts();
 
 public:
 	void insert(AccType type, int number, string name, int balance);

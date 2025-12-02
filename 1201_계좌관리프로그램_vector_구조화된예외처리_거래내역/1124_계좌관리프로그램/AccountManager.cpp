@@ -9,7 +9,7 @@ AccountManager::~AccountManager()
 {
 }
 
-vector<Account*> AccountManager::get_accounts()
+list<Account*> AccountManager::get_accounts()
 {
 	return accounts;
 }
@@ -30,17 +30,19 @@ void AccountManager::insert(AccType type, int number, string name, int balance)
 	acc_ios.push_back(io);
 }
 
+//AF에서 기능 만듬
+bool find_test(Account* acc)
+{
+	return (acc->get_Number() == 111);
+}
 Account* AccountManager::select(int number)
 {
-	for (int i = 0; i < accounts.size(); i++)
-	{
-		Account* acc = (Account*)accounts[i];
-		if (acc->get_Number() == number)
-		{
-			return acc;
-		}
-	}
-	throw "없는 계좌번호입니다";
+	Account_FindNumber af(number);
+
+	list<Account*>::const_iterator itr = find_if(accounts.begin(), accounts.end(), af);
+	if (itr == accounts.end())
+		throw "없는 계좌번호입니다";
+	return *itr;
 }
 
 void AccountManager::print_io(int number)
@@ -56,19 +58,6 @@ void AccountManager::print_io(int number)
 	}
 }
 
-
-int AccountManager::select_idx(int number)
-{
-	for(int i = 0; i < accounts.size(); i++)
-	{
-		Account* acc = (Account*)accounts[i];
-		if (acc->get_Number() == number)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
 
 void AccountManager::update_input(int number, int money)
 {
@@ -99,10 +88,13 @@ void AccountManager::update_output(int number, int money)
 
 void AccountManager::remove(int number)
 {
-	int idx = select_idx(number);
-	if (idx == -1)
-		throw "없는 계좌번호 입니다.";
+	Account_FindNumber af(number);
 
-	accounts.erase(accounts.begin() +idx);  //주소(이터레이터)	
+	list<Account*>::const_iterator itr = find_if(accounts.begin(), accounts.end(), af);
+	if (itr == accounts.end())
+		throw "없는 계좌번호입니다";
+	
+
+	accounts.erase(itr);  //주소(이터레이터)	
 }
 

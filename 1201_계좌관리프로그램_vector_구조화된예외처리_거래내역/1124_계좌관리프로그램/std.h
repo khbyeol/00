@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>	 //vector
+#include <list> //list
 #include <ctime>
 #include <sstream>   //stringstream
 using namespace std;

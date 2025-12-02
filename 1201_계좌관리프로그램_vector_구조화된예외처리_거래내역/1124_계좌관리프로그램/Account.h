@@ -64,3 +64,19 @@ public:
 		cout << "개설시간 : " << MyTime::toTimeString(newdate) << endl;
 	}
 };
+
+class Account_FindNumber
+{
+private:
+	int number;
+public:
+	Account_FindNumber(int _number) : number(_number)
+	{
+	}
+
+	bool operator()(Account* acc)
+	{
+		return (acc->get_Number() == number);
+	}
+
+};
